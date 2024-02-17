@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/Spaceship.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/PortalPlatform.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/ObjectiveArea2.gd" type="Script" id=3]
+[ext_resource path="res://scenes/PlatformBlue.gd" type="Script" id=4]
+[ext_resource path="res://assets/planet.png" type="Texture" id=5]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="Level2" type="Node"]
+
+[node name="PlatformPortal" type="Node2D" parent="."]
+position = Vector2( 489, 564 )
+script = ExtResource( 4 )
+
+[node name="PortalPlatform" parent="PlatformPortal" instance=ExtResource( 2 )]
+
+[node name="PortalPlatform2" parent="PlatformPortal" instance=ExtResource( 2 )]
+position = Vector2( 70, 0 )
+
+[node name="Spaceship" parent="." instance=ExtResource( 1 )]
+position = Vector2( 525, 477 )
+
+[node name="Planet" type="Area2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Planet"]
+position = Vector2( 525, 58 )
+scale = Vector2( 5, 5 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Planet/CollisionShape2D"]
+position = Vector2( 2.80142e-06, 1.63913e-07 )
+scale = Vector2( 0.0416, 0.0424 )
+texture = ExtResource( 5 )
+
+[connection signal="body_entered" from="Planet" to="Planet" method="_on_Planet_body_entered"]
+[connection signal="body_exited" from="Planet" to="Planet" method="_on_Planet_body_exited"]
